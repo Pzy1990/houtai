@@ -21,9 +21,10 @@ instance.interceptors.request.use(config => {
 // 添加响应拦截
 instance.interceptors.response.use(res => {
   // 可以根据不同的状态码进行不同的操作，这里暂时只对成功请求的情况进行操作，其他的根据项目情况加入不同的状态码操作
-  if (res.status === '200') {
-    return res.data;
-  }
+  // if (res.status === '200') {
+  //   return res.data;
+  // }
+  return res;
 }, err => Promise.reject(err));
 
 // 封装get请求,因为get请求传递参数是直接拼接在地址中，因此需要将传递的参数写在config的params中
