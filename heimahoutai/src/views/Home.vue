@@ -1,5 +1,5 @@
 <template>
-  <div class="home" @click="test">这是home</div>
+  <div class="home" @click="test">Home</div>
 </template>
 
 <script>
