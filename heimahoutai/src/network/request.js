@@ -13,8 +13,13 @@ const instance = axios.create({
 
 // 添加请求拦截
 instance.interceptors.request.use(config => {
+  // 每次拦截请求，先取出token确定是否登录，如果已经登录就要给后续的所有请求加上token
+  const token = window.sessionStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
   // 给请求头加入token验证字段
-  config.headers.token = window.sessionStorage.getItem('token');
+  // config.headers.token = window.sessionStorage.getItem('token');
   return config;
 }, err => Promise.reject(err));
 

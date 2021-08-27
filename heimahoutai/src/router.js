@@ -4,11 +4,11 @@ import Login from './views/Login/index.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/login'
+      redirect: '/home'
     },
     {
       path: '/login',
@@ -17,12 +17,26 @@ export default new Router({
     },
     {
       path: '/home',
-      name: 'home',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () =>
-        import(/* webpackChunkName: "about" */ './views/Home')
+        import(/* webpackChunkName: "home" */ './views/Home'),
+      children: [{
+        path: '',
+        name: 'Welecome',
+        component: () => import(/* webpackChunkName: "welcome" */ './views/Welcome')
+      }]
     }
   ]
 });
+
+// 加入路由导航守卫控制权限
+router.beforeEach((to, form, next) => {
+  if (to.path !== '/login') {
+    // 取出token确认是否登录
+    const token = window.sessionStorage.getItem('token');
+    if (!token) { return next('/login'); }
+    next();
+  }
+  next();
+});
+
+export default router;

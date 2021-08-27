@@ -82,6 +82,11 @@ export default {
             const res = await login(this.loginForm);
             // 保存token到sessionStorage
             window.sessionStorage.setItem('token', res.data.data.token);
+            // 保存用户名和用户图像到vuex和sessionStorage防止页面刷新数据丢失
+            this.$store.commit('SetUserName', res.data.data.name);
+            this.$store.commit('SetPhoto', res.data.data.photo);
+            window.sessionStorage.setItem('userName', res.data.data.name);
+            window.sessionStorage.setItem('photo', res.data.data.photo);
             this.$message.success('登录成功！');
             // 登录成功后进入主页面
             this.$router.push('/home');
