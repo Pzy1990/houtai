@@ -24,6 +24,11 @@ const router = new Router({
         name: 'Welecome',
         component: () => import(/* webpackChunkName: "welcome" */ './views/Welcome')
       }]
+    },
+    {
+      path: '*',
+      name: 'nopage',
+      component: () => import(/* webpackChunkName: "welcome" */ './views/NoPage.vue')
     }
   ]
 });
@@ -39,4 +44,5 @@ router.beforeEach((to, form, next) => {
   next();
 });
 
+// 将路由导出
 export default router;
